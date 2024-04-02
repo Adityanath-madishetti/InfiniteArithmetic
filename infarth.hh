@@ -49,11 +49,13 @@ namespace InfiniteArthmetic
            }
          friend    Integer compliment(const  std::string&,const std::string&) ;
          friend std::ostream& operator<<(std::ostream&,  const Integer&);
+         friend  std::istream& operator>>(std::istream&,  Integer&);
+
          static  Integer parse(const std::string& s);
          Integer& operator=(const Integer& other);
          Integer operator+(const Integer& other) const;
          Integer operator-(const Integer&other) const ;
-         Integer operator*( const Integer& other);
+         Integer operator*( const Integer& other) const;
          Integer operator/(const Integer& other);
          bool operator>( const Integer& other);
          bool operator<(const Integer& other);
@@ -64,6 +66,7 @@ namespace InfiniteArthmetic
                           
     };
     std::ostream& operator<<(std::ostream&,const  Integer&);
+    std::istream& operator>>(std::istream&,  Integer&);
     Integer compliment(const std::string&,const std::string& ) ;
 
 }

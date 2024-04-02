@@ -57,7 +57,7 @@ std::string removeLeadingZeros(const std::string& str)
     return "0";
 }
 
-//---------------------------------------------------------------------
+//------------------------------------------------------------------------------
 using  II=InfiniteArthmetic:: Integer;
 
 II InfiniteArthmetic::Integer::parse(const std::string& s)
@@ -80,15 +80,6 @@ std::ostream& InfiniteArthmetic:: operator<<(std::ostream& cp,const   Integer& o
  {
        II temp;
        temp=other;
-   //                  size_t pos = other.number.find_first_not_of('0'); 
-   //                  // Find the position of the first non-zero digit
-
-   //  // If there are leading zeros, remove them
-   //  if (pos == std::string::npos) {
-   //    exit(1);
-   //      temp.number= other.number.substr(pos); 
-   //      //Extract substring starting from the first non-zero digit
-   //  }
                
 
              if(other.sign=='+')
@@ -160,16 +151,14 @@ II InfiniteArthmetic::Integer::operator+(const Integer& other) const
                
                  for( ;i<num1.size();i++)
                  {
-                      //  std::cout<<result[i];
+                     
                          answer.number=answer.number+(char)('0'+result[i]);
                      
                  }
-               //  std::cout<<std::endl;
+          
                answer.number=removeLeadingZeros(answer.number);
                  answer.length=(answer.number).size();
-                // answer.number[num1.size()-1]='\0'; //redundant ,but if some thing goes wrong then uncomment
-                // std::cout<<answer<<std::endl;
-                //std::cout<<answer.number<<std::endl;
+                
                  return answer;
 
       }
@@ -187,7 +176,7 @@ II InfiniteArthmetic::Integer::operator+(const Integer& other) const
         }
         else
         {
-          //std::cout<<"hi"<<std::endl;
+          
             II big;
             II small;
             II result;
@@ -196,15 +185,14 @@ II InfiniteArthmetic::Integer::operator+(const Integer& other) const
              { 
                 big=*this;
                 small=other;
-                          std::cout<<"hi1"<<std::endl;
+                          
 
 
              }else if(this->number.size()<other.number.size())
              {
                 big=other;
                 small=*this;
-                          //std::cout<<"hi2"<<std::endl;
-
+                          
              }
  /*equal digits  */ else
             {
@@ -241,12 +229,10 @@ II InfiniteArthmetic::Integer::operator+(const Integer& other) const
 InfiniteArthmetic::Integer II:: operator-(const Integer&other) const 
 {
                
-              // std::cout<<"i am in"<<std::endl;
-               std::cout<<this->sign<<other.sign<<std::endl;
-              //return ZERO;
+              
       if(!(other.sign==this->sign))
            {       
-                   //   std::cout<<"i am in  diff signs"<<std::endl;
+                   
                 II  num1=*this;
                 II num2=other;
                 num1.sign='+';
@@ -259,8 +245,7 @@ InfiniteArthmetic::Integer II:: operator-(const Integer&other) const
            
       else  if(this->sign=='+' and other.sign=='+')
        {
-            //final step before returning is set sign of result
-           // std::cout<<"i am in + +"<<std::endl;
+           
               II result;
               II big;
               II small;
@@ -298,21 +283,20 @@ InfiniteArthmetic::Integer II:: operator-(const Integer&other) const
                               return Integer("0");
                  }
            }
-          // std::cout<<small.number<<std::endl;
+          
             small=compliment(small.number,big.number);
             big.sign='+';
             small.sign='+';
             result=big+small;
-            //std::cout<<result.number<<std::endl;
-            //result.number[0]=result.number
+          
             result.sign=final_sign;
             result.number[0]='0';
             result.number=removeLeadingZeros(result.number);
             return result;
-           // II new=comp()
+          
       } else
       {
-            //  std::cout<<"i am in - -"<<std::endl;
+           
               II result;
               II big;
               II small;
@@ -349,20 +333,96 @@ InfiniteArthmetic::Integer II:: operator-(const Integer&other) const
                               return Integer("0");
                  }
            }
-          // std::cout<<small.number<<std::endl;
+       
             small=compliment(small.number,big.number);
             big.sign='+';
             small.sign='+';
             result=big+small;
 
-            //std::cout<<result.number<<std::endl;
-            //result.number[0]=result.number
+            
             result.sign=final_sign;
            result.number[0]='0';// you need to remove leading 1 so make it 0 and remove
             result.number=removeLeadingZeros(result.number);
             return result;            
       }
-    //  return Integer("0");
+ 
 }
+
+InfiniteArthmetic::Integer II::operator*(const Integer& other) const 
+{
+                       //lets decide sign first
+                       char final_sign;
+                       if(other.sign==this->sign)
+                       {
+                         final_sign='+';
+                       }else
+                       {
+                        final_sign='-';
+                       }
+                           if(other.number=="0" or this->number=="0")
+                           {
+                              return Integer("0");
+                           }
+                       //sign decision done
+                             //for multiplication run loop from last to index=1
+                             //then append the last index o multiplication separately
+                      Integer total("0");
+                           total.sign='+';
+                           total.length=(total.number).size();
+                           int zero_counter=0;
+                         
+                           for(int j=this->number.size()-1;j>=0;j--)
+                        {   
+                        
+                             Integer temp;
+                            temp.sign='+';
+                            temp.number="";
+                           int  carrier=0;
+                        
+                           for(int i=(other.number).size()-1;i>=1;i--)
+                           {     
+                                
+                                 int figure=((other.number[i]-'0')*(this->number[j]-'0'));
+                                 figure+=carrier;
+                                 carrier=figure/10;
+                                 temp.number=((char)('0'+(figure%10)))+temp.number;
+                           }
+                         
+                               int figure = ((other.number[0]-'0')*(this->number[j]-'0'));
+                                figure+=carrier;
+                                while(figure!=0)
+                                {
+                                  int digit=figure%10;
+                                  char digit_character=(char)(digit+'0');
+                                  temp.number=digit_character+temp.number;
+                                  figure/=10;
+                                }
+                          
+
+                                for(int k=1;k<=zero_counter;k++)
+                                {
+                              
+                                  temp.number=temp.number+'0';
+                                }
+                                zero_counter++;
+                              
+                            total=total+temp;
+                            total.length=total.number.size();//may be redudant
+                        }
+                      total.sign=final_sign;
+                      total.number=removeLeadingZeros(total.number);
+                      total.length=total.number.size();
+                      return total;
+}
+  std::istream& InfiniteArthmetic::operator>>(std::istream&cp,  Integer&input_object)
+  {
+    std::string temporary;
+      cp>>temporary;
+      II temp(temporary);
+      input_object=temp;
+      return cp;
+
+  }
+
 
 
