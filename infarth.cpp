@@ -57,6 +57,30 @@ std::string removeLeadingZeros(const std::string& str)
     return "0";
 }
 
+InfiniteArthmetic::Integer InfiniteArthmetic::MagnitudeCompare(const Integer one, const Integer two)
+{
+  if (one.number.size() > two.number.size())
+  {
+    return one;
+  }
+  else if (one.number.size() < two.number.size())
+  {
+    return two;
+  }
+  else
+  {
+    if (one.number > two.number)
+    {
+      return one;
+    }
+    else
+    {
+      return two;
+    }
+    return one;
+  }
+ }
+
 //------------------------------------------------------------------------------
 using  II=InfiniteArthmetic:: Integer;
 
@@ -117,6 +141,60 @@ II InfiniteArthmetic::compliment(const std::string& number,const std::string& st
        
                      return comp;                             
 }
+
+ bool II::operator>( const Integer& other)
+ {
+    if(this->sign=='+' and other.sign=='-')
+    {
+          return true;
+    }else if(this->sign=='-' and other.sign=='+')
+    {
+       return false;
+    }else if( this->sign=='+' and other.sign=='+')
+    {
+                 if(this->number.size()>other.number.size())
+                 {
+                  return true;
+                 }else if(this->number.size()<other.number.size())
+                 {
+                  return false;
+                 }else
+                 {
+                              if(this->number>other.number)
+                              {
+                                return true;
+                              }else{
+                                false;
+                              }
+                 }
+                 
+    }
+ }
+ bool II::operator==( const Integer& other)
+ {
+                if((this->number==other.number) and (this->sign==other.sign))
+                {
+                   return true;
+                }
+                else{
+                  return false;
+                }
+ }
+
+ bool II::operator!=( const Integer& other)
+ {
+     return !(*this==other);
+  
+ }
+
+  bool II::operator<( const Integer& other)
+  {
+     return (!((*this==other) and (*this>other)));
+  }
+
+
+
+
 II InfiniteArthmetic::Integer::operator+(const Integer& other) const 
   {
        std::string num1=number;

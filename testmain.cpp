@@ -21,5 +21,26 @@ int main()
     std::cout<<largenum1+largenum2<<std::endl;
     std::cout<<largenum1*largenum2<<std::endl;
     std::cout<<largenum1-largenum2<<std::endl;
+// if(largenum1>largenum2)
+// {
+//      std::cout<<"num1 is big"<<std::endl;
+// }else{
+
+//      std::cout<<"num2 is big"<<std::endl;
+// }
+// II num1("123");
+// II num2("134");
+// II num3("-234");
+// II num4("-546");
+// II num5("123");
+// if((num1<num4) and (num2>num3) and (num1==num5))
+// {
+//          std::cout<<"succesful"<<std::endl;
+// }else{
+//     std::cout<<"failure"<<std::endl;
+// }
+
+
+
 
 }
