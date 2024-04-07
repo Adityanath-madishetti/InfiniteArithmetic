@@ -21,23 +21,25 @@ namespace InfiniteArthmetic
            Integer();
            Integer( const std::string& s);
            Integer( const Integer& other);
-           
-         friend    Integer compliment(const  std::string&,const std::string&) ;
+
+         friend Integer compliment(const  std::string&,const std::string&) ;
          friend std::ostream& operator<<(std::ostream&,  const Integer&);
-         friend  std::istream& operator>>(std::istream&,  Integer&);
+         friend std::istream& operator>>(std::istream&,  Integer&);
          friend Integer MagnitudeCompare(const Integer,const Integer);
 
-         static  Integer parse(const std::string& s);
-         Integer& operator=(const Integer& other);
-         Integer operator+(const Integer& other) const;
-         Integer operator-(const Integer&other) const ;
-         Integer operator*( const Integer& other) const;
-         Integer operator/(const Integer& other);
-         bool operator>( const Integer& other);
-         bool operator<(const Integer& other);
-         bool operator!=(const Integer& other);
-         bool operator==(const Integer& other);
-         int  no_of_digits(const Integer& number);
+         static  Integer parse(const std::string& );
+         Integer& operator=(const Integer&);
+         Integer operator+(const Integer& ) const;
+         Integer operator-(const Integer&) const ;
+         Integer operator*( const Integer&) const;
+         Integer operator/(const Integer& );
+         bool    operator>( const Integer& );
+         bool    operator<(const Integer& );
+         bool    operator!=(const Integer& );
+         bool    operator==(const Integer& );
+         int     no_of_digits(const Integer& );
+         Integer& operator+=(Integer& );
+         Integer&  operator++();
          
     
                           

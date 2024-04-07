@@ -25,7 +25,7 @@ std::ostream& InfiniteArthmetic:: operator<<(std::ostream& cp,const   Integer& o
 
 
 
-  bool II::operator>( const Integer& other)
+bool II::operator>( const Integer& other)
  {
     if(this->sign=='+' and other.sign=='-')
     {
@@ -33,7 +33,9 @@ std::ostream& InfiniteArthmetic:: operator<<(std::ostream& cp,const   Integer& o
     }else if(this->sign=='-' and other.sign=='+')
     {
        return false;
-    }else if( this->sign=='+' and other.sign=='+')
+    }
+    
+    else if( this->sign=='+' and other.sign=='+')
     {
                  if(this->number.size()>other.number.size())
                  {
@@ -41,7 +43,8 @@ std::ostream& InfiniteArthmetic:: operator<<(std::ostream& cp,const   Integer& o
                  }else if(this->number.size()<other.number.size())
                  {
                   return false;
-                 }else
+                 }
+                 else
                  {
                               if(this->number>other.number)
                               {
@@ -53,7 +56,7 @@ std::ostream& InfiniteArthmetic:: operator<<(std::ostream& cp,const   Integer& o
                  
     }
  }
- bool II::operator==( const Integer& other)
+bool II::operator==( const Integer& other)
  {
                 if((this->number==other.number) and (this->sign==other.sign))
                 {
@@ -64,7 +67,7 @@ std::ostream& InfiniteArthmetic:: operator<<(std::ostream& cp,const   Integer& o
                 }
  }
 
- bool II::operator!=( const Integer& other)
+bool II::operator!=( const Integer& other)
  {
      return !(*this==other);
   
@@ -72,7 +75,7 @@ std::ostream& InfiniteArthmetic:: operator<<(std::ostream& cp,const   Integer& o
 
   bool II::operator<( const Integer& other)
   {
-     return (!((*this==other) and (*this>other)));
+     return (!((*this==other) or (*this>other)));
   }
 
 
@@ -106,7 +109,9 @@ II InfiniteArthmetic::Integer::operator+(const Integer& other) const
                 if(result[0]==0)
                 {
                            i=1;
-                }else{
+                }
+                else
+                {
                    i=0;
                 }
                
@@ -117,7 +122,7 @@ II InfiniteArthmetic::Integer::operator+(const Integer& other) const
                      
                  }
           
-               answer.number=removeLeadingZeros(answer.number);
+                 answer.number=removeLeadingZeros(answer.number);
                  answer.length=(answer.number).size();
                 
                  return answer;
@@ -135,6 +140,7 @@ II InfiniteArthmetic::Integer::operator+(const Integer& other) const
                  answer.length=answer.number.size();
                  return answer ;
         }
+
         else
         {
           
@@ -165,7 +171,8 @@ II InfiniteArthmetic::Integer::operator+(const Integer& other) const
                  {
                    big=other;
                    small=*this;  
-                 }else{
+                 }
+                 else{
 
                               return Integer("0");
                  }
@@ -342,7 +349,7 @@ InfiniteArthmetic::Integer II::operator*(const Integer& other) const
                         
                            for(int i=(other.number).size()-1;i>=1;i--)
                            {     
-                                
+
                                  int figure=((other.number[i]-'0')*(this->number[j]-'0'));
                                  figure+=carrier;
                                  carrier=figure/10;
@@ -375,12 +382,90 @@ InfiniteArthmetic::Integer II::operator*(const Integer& other) const
                       total.length=total.number.size();
                       return total;
 }
-  std::istream& InfiniteArthmetic::operator>>(std::istream&cp,  Integer&input_object)
+  
+std::istream& InfiniteArthmetic::operator>>(std::istream&cp,  Integer&input_object)
   {
     std::string temporary;
       cp>>temporary;
       II temp(temporary);
       input_object=temp;
       return cp;
-
+  } 
+  II& II::operator+=(Integer& other)
+  {
+          *this=*this+other;
+          return *this;
   }
+  II& II::operator++()
+  {
+       Integer one("1");
+       *this=*this+one;
+       this->length=this->number.size();
+       return *this;
+  }
+
+II II::operator/(const Integer& other)
+{
+  char finalsign;
+  Integer ZERO("0");
+  Integer One("1");
+  if (!(this->sign == other.sign))
+  {
+    finalsign = '-';
+  }
+  else
+  {
+    finalsign = '+';
+  }
+
+  Integer Dividend(*this);
+  Integer Divisor(other);
+  Dividend.sign='+';
+  Divisor.sign='+';
+
+
+  if (Divisor.number == "0")
+  {
+    throw std::runtime_error("division by zero is not possible");
+  }
+  else if (Dividend < Divisor)
+  {
+    std::cout<<"hi"<<std::endl;
+    return ZERO;
+  }
+  else if (Dividend == Divisor)
+  {
+    One.sign = finalsign;
+    return One;
+  }
+  
+     int  L_I=Dividend.number.size()-1;
+     int p_i=0; 
+     Integer itm;
+     itm.sign='+';
+     itm.number="";
+     Integer quotient;
+     quotient.number="";
+     
+     while (p_i<=L_I)
+     {
+             Integer multiplier("0");
+             multiplier.sign='+';
+             itm.number=itm.number+Dividend.number[p_i];
+             itm.sign='+';
+             itm.number=removeLeadingZeros(itm.number);
+             while(itm>(Divisor*multiplier) or itm==(Divisor*multiplier))
+             {
+                 multiplier=multiplier+One;
+             }
+             multiplier=multiplier-One;
+             quotient.number=quotient.number+multiplier.number;
+             itm=itm-(Divisor*multiplier);
+             p_i++;
+     }
+
+   quotient.number=removeLeadingZeros(quotient.number);
+   quotient.sign=finalsign;
+   quotient.length=quotient.number.size();
+   return quotient;
+}

@@ -4,6 +4,11 @@
 
 int main()
 {
+    try
+    {
+        
+
+    
     using  II=InfiniteArthmetic:: Integer;
     // II num1("123");
     // II num2("-0");
@@ -15,12 +20,12 @@ int main()
     // std::cin>>num4;
     // std::cout<<num4<<std::endl;
     // std::cout<<num4+num3<<std::endl;
-    II largenum1;
-    II largenum2;
-    std::cin>>largenum1>>largenum2;
-    std::cout<<largenum1+largenum2<<std::endl;
-    std::cout<<largenum1*largenum2<<std::endl;
-    std::cout<<largenum1-largenum2<<std::endl;
+    // II largenum1;
+    // II largenum2;
+    // std::cin>>largenum1>>largenum2;
+    // std::cout<<largenum1+largenum2<<std::endl;
+    // std::cout<<largenum1*largenum2<<std::endl;
+    // std::cout<<largenum1-largenum2<<std::endl;
 // if(largenum1>largenum2)
 // {
 //      std::cout<<"num1 is big"<<std::endl;
@@ -38,8 +43,19 @@ int main()
 //          std::cout<<"succesful"<<std::endl;
 // }else{
 //     std::cout<<"failure"<<std::endl;
-// }
+           II div1("230");
+           II div2("2");
+           std::cin>>div1;
+           std::cin>>div2;
+           std::cout<<div1/div2<<std::endl;
 
+// }
+    }
+    catch (std::exception* obj)
+    {
+             std::cerr<<obj->what()<<std::endl;                
+
+    }
 
 
 
