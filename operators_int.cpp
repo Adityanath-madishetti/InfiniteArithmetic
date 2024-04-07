@@ -404,7 +404,7 @@ std::istream& InfiniteArthmetic::operator>>(std::istream&cp,  Integer&input_obje
        return *this;
   }
 
-II II::operator/(const Integer& other)
+II II::operator/(const Integer& other) const
 {
   char finalsign;
   Integer ZERO("0");

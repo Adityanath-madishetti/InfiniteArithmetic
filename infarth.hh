@@ -32,7 +32,7 @@ namespace InfiniteArthmetic
          Integer operator+(const Integer& ) const;
          Integer operator-(const Integer&) const ;
          Integer operator*( const Integer&) const;
-         Integer operator/(const Integer& );
+         Integer operator/(const Integer& )const;
          bool    operator>( const Integer& );
          bool    operator<(const Integer& );
          bool    operator!=(const Integer& );
