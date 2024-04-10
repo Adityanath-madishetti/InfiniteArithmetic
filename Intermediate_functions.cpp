@@ -43,6 +43,11 @@ int remake(std::string&s1,std::string&s2)
                }
 
 }
+
+/* remove leading is very useful function here
+ * its behaviour of returning "0" when any string is empty is extremly useful in case of floating point numbers
+ *  so this makes representaton of floating numbers easy
+*/
 std::string removeLeadingZeros(const std::string& str) 
 {   
        
@@ -52,8 +57,9 @@ std::string removeLeadingZeros(const std::string& str)
     if (pos != std::string::npos) {
         return str.substr(pos); // Extract substring starting from the first non-zero digit
     }
-
+     
     // If the entire string consists of zeros, return "0"
+    //also if unfortunately the string is empty then allso it returns "0" which is comfortable
     return "0";
 }
 
@@ -90,14 +96,6 @@ II InfiniteArthmetic::Integer::parse(const std::string& s)
           return temp;
  }
 
-II& II::operator=(const Integer& other)
-          {
-                   this->sign=other.sign;
-                   this->number=other.number;
-                   this->length=other.length;
-          }
-
- 
 II InfiniteArthmetic::compliment(const std::string& number,const std::string& string_for_digits)
 {
    //number<=other----------> digits
@@ -123,8 +121,40 @@ II InfiniteArthmetic::compliment(const std::string& number,const std::string& st
        
                      return comp;                             
 }
+using IF=InfiniteArthmetic::Float;
+IF IF::parse(const std::string& s)
+{
+  IF temp(s);
+  return temp;
+}
+void InfiniteArthmetic::set_intpart(std::string&s1int,std::string&s2int)
+{
+  //above references are reference to copy of the originals in add function
+  std::string& max_length_string=((s1int.size()>s2int.size())?s1int:s2int);
+  std::string& min_length_string=((s1int.size()>s2int.size())?s2int:s1int);
+  int difference=max_length_string.size()-min_length_string.size();
+  for(int i=1;i<=difference;i++)
+  {
+          min_length_string='0'+min_length_string;
+  }
 
+}
 
+void InfiniteArthmetic::set_fracpart(std::string&s1int,std::string&s2int)
+{
+  //above references are reference to copy of the originals in add function
+  std::string& max_length_string=((s1int.size()>s2int.size())?s1int:s2int);
+  std::string& min_length_string=((s1int.size()>s2int.size())?s2int:s1int);
+  int difference=max_length_string.size()-min_length_string.size();
+  for(int i=1;i<=difference;i++)
+  {
+    min_length_string=min_length_string+'0';
+  }
+}
 
+int InfiniteArthmetic::no_of_digits(const II &integer)
+{
+   return integer.number.size();
+}
 
 
